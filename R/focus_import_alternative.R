@@ -1,8 +1,11 @@
+#This is an R implement of focus import function. It aviod the [ERROR "symbol"] and the query of gencode database, thus is computationally efficient (~0.6h for importing all gtexv8 elastic net model).
+#Since the tx_start and tx_end of genes does not actually matter, i replaced them by the midpoint of correspponding eqtls, which ensure that all cis-eqtl will be included. 
+
 library(tidyr)
 setwd("/lustre/home/acct-bmelgn/bmelgn-3/focusdata/")
 library(RSQLite)
 load("0519.RData") #contains: df kgsnp, which match rsid to hg19 chr and pos; empty df refpanel, model, model attribute, molecularfeature and weight, with the same colnames as focus.db provided by focus author.
-
+tmp=list.files(pattern="en*")
 ###read in .db
 for (filename in tmp){
 tissue=sub("en_","",filename)
@@ -55,7 +58,7 @@ extra[,1]=t(data.frame(strsplit(extra[,1],".",fixed=T)))[,1]
 extra[,1]=molecularfeature[match(extra[,1],molecularfeature[,2]),1]
 extra[,1]=intmodel[match(extra[,1],intmodel[,4]),1]
 intextra=extra[,c(1,9,12)]
-colnames(intextra)=c("model_id","cv.R2","cv.R2.pval")
+colnames(intextra)=c("model_id","cv.R2","cv.R2.pval") #if using mashr model, please modify the column name.
 int4=gather(intextra,attr_name,value,cv.R2:cv.R2.pval)
 int4=int4[order(int4[,1]),]
 int4=data.frame(id="id",int4[,c(2,3,1)])
