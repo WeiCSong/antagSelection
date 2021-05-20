@@ -17,7 +17,7 @@ db1 <- dbConnect(sqlite.driver,
 weights=dbReadTable(db1,"weights")
 extra=dbReadTable(db1,"extra")
 
-weights=weights[which(weights[,2] %in% kgsnp[,2]),]
+weights=weights[which(weights[,2] %in% kgsnp[,2]),] #I restrict my analysis to hg19 database, due to the error of 1000G liftover (see their ftp site)
 l=match(weights[,2],kgsnp[,2])
 
 weights$chr=paste("chr",kgsnp[l,1],sep="")
