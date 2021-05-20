@@ -40,7 +40,7 @@ return(mean(c(min(x),max(x))))
 
 int2=data.frame(int2,chrom=weights[match(int2[,2],weights[,1]),"chr"],tx_start=unlist(sapply(int2[,2],f)))
 int2$tx_start=ceiling(int2$tx_start)
-int2=data.frame(int2,tx_end=int2$tx_start+1)
+int2=data.frame(int2,tx_stop=int2$tx_start+1)
 
 molecularfeature=rbind(molecularfeature,int2)
 molecularfeature$id=1:nrow(molecularfeature)
