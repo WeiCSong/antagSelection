@@ -1,2 +1,3 @@
 # antagSelection
-antagonistic effect of gene expression on polygenic disease might diminish the purifying selection that remove the risk eqtl.
+Loci-level antagonistic selection shaped the polygenic architecture of human complex diseases.
+Human Genetics. In revision. 2022
