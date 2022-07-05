@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#gwas=$1
+
+gwas=F1.gz
+
+for dbpath in /lustre/home/acct-bmelgn/bmelgn-3/int/elastic_net_models/en_*.db ;
+do
+
+#trait=${gwas/"/lustre/home/acct-bmelgn/bmelgn-3/ldsc/all_gwas/"/""}
+#trait=${trait/".gz"/""}
+#echo $trait
+
+
+covpath=${dbpath/".db"/".txt.gz"}
+tissue=${dbpath/"/lustre/home/acct-bmelgn/bmelgn-3/int/elastic_net_models/en_"/""}
+tissue=${tissue/".db"/""}
+
+/lustre/home/acct-bmelgn/bmelgn-3/MetaXcan/software/SPrediXcan.py \
+--model_db_path $dbpath \
+--covariance $covpath \
+--gwas_file $gwas \
+--snp_column SNP \
+--effect_allele_column A1 \
+--non_effect_allele_column A2 \
+--beta_column b \
+--pvalue_column p \
+--output_file $tissue+F1.csv
+
+
+#echo $trait+$tissue
+
+done
