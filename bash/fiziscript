@@ -1,0 +1,12 @@
+#!/bin/bash
+
+chr=$1
+start=$2
+stop=$3
+id=$4
+for file in $id/*gz ;
+do
+
+fizi impute $file $id/ref --chr $chr --start $start --stop $stop --out $file --min-prop 0.3
+cat $file.sumstat | gzip > $file
+done
